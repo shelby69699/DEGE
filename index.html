@@ -145,10 +145,8 @@
       }
 
       
-      /* HIDE ONLY SPECIFIC BUTTON SECTIONS - KEEP MAIN CONTENT */
-      
-      /* Hide buttons but keep main title and background */
-      button {
+      /* HIDE ALL EXISTING BUTTONS EXCEPT BIG BUY BUTTON */
+      button:not(#big-buy-button) {
         display: none !important;
       }
       
@@ -157,10 +155,48 @@
       .footer {
         display: none !important;
       }
+      
+      /* CREATE BIG BUY NOW BUTTON */
+      #big-buy-button {
+        display: block !important;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #ff6b35, #f7931e);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        padding: 20px 60px;
+        font-size: 28px;
+        font-weight: bold;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      
+      #big-buy-button:hover {
+        transform: translate(-50%, -50%) scale(1.05);
+        box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
+        background: linear-gradient(135deg, #ff7b45, #f8a32e);
+      }
+      
+      #big-buy-button:active {
+        transform: translate(-50%, -50%) scale(0.98);
+      }
 
       /* BUTTON CLICK HANDLERS */
     </style>
     
+    <!-- BIG BUY NOW BUTTON -->
+    <button id="big-buy-button" onclick="window.open('https://app.dexhunter.io/swap?tokenIdSell=&tokenIdBuy=dd44d2980c62c220022fcd54f0517b77c70b673a5fa4f9595899b4c644454745', '_blank')">
+      🚀 BUY NOW
+    </button>
+
     <script>
       // Add click handlers for trading buttons
       document.addEventListener('DOMContentLoaded', function() {
