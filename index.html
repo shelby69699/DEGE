@@ -145,36 +145,16 @@
       }
 
       
-      /* HIDE ALL BUTTON SECTIONS */
-      .quick-links,
-      .follow-us,
-      .trade-dege,
-      [class*="quick"],
-      [class*="follow"],
-      [class*="trade"],
-      [class*="social"],
-      [class*="button"],
-      button,
-      .contract-address,
-      .footer-buttons,
-      .social-buttons,
-      .voting-section,
-      .bottom-section {
+      /* HIDE ONLY SPECIFIC BUTTON SECTIONS - KEEP MAIN CONTENT */
+      
+      /* Hide buttons but keep main title and background */
+      button {
         display: none !important;
       }
       
-      /* Hide any divs containing buttons */
-      div:has(button),
-      div:has(img[src*="Button"]),
-      div:has(img[src*="Buy"]),
-      div:has(img[src*="Copy"]) {
-        display: none !important;
-      }
-      
-      /* Hide contract address and footer sections */
-      div[class*="contract"],
-      div[class*="address"],
-      div[class*="footer"] {
+      /* Hide footer elements */
+      footer,
+      .footer {
         display: none !important;
       }
 
