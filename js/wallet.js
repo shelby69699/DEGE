@@ -14,14 +14,25 @@ class DegeWallet {
 
     async init() {
         try {
-            // Initialize Lucid with Blockfrost (you'll need to replace with your API key)
-            this.lucid = await Lucid.new(
-                new Blockfrost('https://cardano-mainnet.blockfrost.io/api/v0', 'YOUR_BLOCKFROST_API_KEY'),
-                'Mainnet'
-            );
+            // Check if API key is set
+            const apiKey = 'YOUR_BLOCKFROST_API_KEY';
+            if (apiKey === 'YOUR_BLOCKFROST_API_KEY') {
+                console.warn('⚠️ Please set your Blockfrost API key in wallet.js');
+                console.warn('Get your free API key at: https://blockfrost.io/');
+                // Initialize without Blockfrost for testing
+                this.lucid = await Lucid.new(undefined, 'Mainnet');
+            } else {
+                // Initialize Lucid with Blockfrost
+                this.lucid = await Lucid.new(
+                    new Blockfrost('https://cardano-mainnet.blockfrost.io/api/v0', apiKey),
+                    'Mainnet'
+                );
+            }
             console.log('🚀 DEGE Wallet System Initialized');
         } catch (error) {
             console.error('Failed to initialize Lucid:', error);
+            // Create a fallback for testing
+            this.lucid = null;
         }
     }
 
@@ -64,6 +75,11 @@ class DegeWallet {
                 throw new Error(`${walletName} wallet not found. Please install the wallet extension.`);
             }
 
+            // Check if Lucid is initialized
+            if (!this.lucid) {
+                throw new Error('Wallet system not initialized. Please refresh the page and try again.');
+            }
+
             // Enable the wallet
             this.walletAPI = await window.cardano[walletName].enable();
             
@@ -73,8 +89,13 @@ class DegeWallet {
             // Get wallet address
             this.address = await this.lucid.wallet.address();
             
-            // Get wallet balance
-            await this.updateBalance();
+            // Get wallet balance (with error handling)
+            try {
+                await this.updateBalance();
+            } catch (balanceError) {
+                console.warn('Could not fetch balance:', balanceError.message);
+                this.balance = { ada: 0, lovelace: 0 };
+            }
 
             this.isConnected = true;
             
@@ -99,7 +120,7 @@ class DegeWallet {
     // Update wallet balance
     async updateBalance() {
         try {
-            if (!this.isConnected) return;
+            if (!this.isConnected || !this.lucid) return;
 
             const utxos = await this.lucid.wallet.getUtxos();
             let totalADA = 0;
@@ -116,7 +137,9 @@ class DegeWallet {
             return this.balance;
         } catch (error) {
             console.error('Failed to update balance:', error);
-            return null;
+            // Return a default balance if query fails
+            this.balance = { ada: 0, lovelace: 0 };
+            return this.balance;
         }
     }
 
