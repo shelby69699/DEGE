@@ -1,6 +1,8 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="images/MainDege.png?v=1">
+    <link rel="icon" type="image/png" href="favicons/700--MainDege.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary Meta Tags -->
@@ -13,7 +15,7 @@
     <meta property="og:url" content="https://dege.io/">
     <meta property="og:title" content="DEGE - America's Digital Mascot">
     <meta property="og:description" content="Join DEGE, the patriotic meme coin bringing financial freedom to America. Unite with the community and embrace the future of digital currency.">
-    <meta property="og:image" content="images/DegeBanner.png?v=1">
+    <meta property="og:image" content="favicons/700--MainDege.png">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -23,259 +25,27 @@
     <meta name="twitter:image" content="https://i.imgur.com/Ps4ZOef.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&amp;family=Sora:wght@100..800&amp;display=swap" rel="stylesheet">
 
-    <script data-collect-dnt="true" async="" src="js/latest.js"></script>
+    <script data-collect-dnt="true" async src="js/latest.js"></script>
 
     <style>
       * {
-        cursor: url("images/Cursor.png?v=1") 12 12, auto !important;
+        cursor: default !important;
       }
 
       button,
       a,
       [role="button"],
       input[type="button"] {
-        cursor: url("images/Cursor.png?v=1") 12 12, pointer !important;
-      }
-
-      /* Wallet Connection Styles */
-      .wallet-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        font-family: 'Sora', sans-serif;
-      }
-
-      .wallet-btn {
-        background: linear-gradient(45deg, #ff0000, #0000ff);
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 25px;
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      .wallet-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      }
-
-      .wallet-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-      }
-
-      .wallet-modal-content {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        max-width: 400px;
-        width: 90%;
-        text-align: center;
-        position: relative;
-      }
-
-      .wallet-option {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 15px;
-        margin: 10px 0;
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .wallet-option:hover {
-        border-color: #ff0000;
-        background: #f8f9fa;
-      }
-
-      .wallet-info {
-        margin-top: 15px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 10px;
-        display: none;
-      }
-
-      .close-modal {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #666;
-      }
-
-      .address-display {
-        font-family: monospace;
-        font-size: 12px;
-        color: #666;
-        margin: 5px 0;
-      }
-
-      .balance-display {
-        font-weight: bold;
-        color: #0066cc;
-        margin: 5px 0;
+        cursor: pointer !important;
       }
     </style>
-    <script type="module" crossorigin="" src="js/index-Cg2tqmJC.js"></script>
-    <script type="module" src="js/wallet.js"></script>
-    <link rel="stylesheet" crossorigin="" href="css/index-CVFuhTm_.css">
+    <script type="module" crossorigin src="js/assets-index-Cg2tqmJC.js"></script>
+    <link rel="stylesheet" crossorigin href="css/assets-index-CVFuhTm_.css">
   </head>
   <body>
     <div id="app"></div>
-    
-    <!-- Wallet Connection UI -->
-    <div class="wallet-container">
-      <button id="connect-wallet-btn" class="wallet-btn" onclick="openWalletModal()">
-        Connect Wallet
-      </button>
-      
-      <div id="wallet-info" class="wallet-info">
-        <div class="address-display">
-          <strong>Address:</strong> <span id="wallet-address">Not connected</span>
-        </div>
-        <div class="balance-display">
-          <strong>Balance:</strong> <span id="wallet-balance">0.00 ADA</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Wallet Selection Modal -->
-    <div id="wallet-modal" class="wallet-modal">
-      <div class="wallet-modal-content">
-        <span class="close-modal" onclick="closeWalletModal()">&times;</span>
-        <h2>🦅 Connect Your Wallet</h2>
-        <p>Choose your preferred Cardano wallet to connect with DEGE</p>
-        <div id="wallet-options">
-          <!-- Wallet options will be populated by JavaScript -->
-        </div>
-      </div>
-    </div>
-
-    <script>
-      // Wallet modal functions
-      function openWalletModal() {
-        if (window.degeWallet && window.degeWallet.isConnected) {
-          window.disconnectWallet();
-          return;
-        }
-        
-        const modal = document.getElementById('wallet-modal');
-        const walletOptions = document.getElementById('wallet-options');
-        
-        // Clear existing options
-        walletOptions.innerHTML = '';
-        
-        // Check if degeWallet is available
-        if (window.degeWallet) {
-          const availableWallets = window.degeWallet.getAvailableWallets();
-          
-          if (availableWallets.length === 0) {
-            walletOptions.innerHTML = `
-              <div style="text-align: center; padding: 20px; color: #666;">
-                <p>No Cardano wallets detected!</p>
-                <p>Please install a Cardano wallet extension:</p>
-                <div style="margin-top: 15px;">
-                  <a href="https://namiwallet.io/" target="_blank" style="margin: 5px; padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; display: inline-block;">Nami Wallet</a>
-                  <a href="https://eternl.io/" target="_blank" style="margin: 5px; padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; display: inline-block;">Eternl</a>
-                  <a href="https://flint-wallet.com/" target="_blank" style="margin: 5px; padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; display: inline-block;">Flint</a>
-                </div>
-              </div>
-            `;
-          } else {
-            availableWallets.forEach(wallet => {
-              const option = document.createElement('div');
-              option.className = 'wallet-option';
-              option.innerHTML = `
-                <span>${wallet.icon} ${wallet.displayName}</span>
-                <span>Connect →</span>
-              `;
-              option.onclick = () => connectToWallet(wallet.name);
-              walletOptions.appendChild(option);
-            });
-          }
-        } else {
-          walletOptions.innerHTML = `
-            <div style="text-align: center; padding: 20px; color: #666;">
-              <p>Wallet system is loading...</p>
-              <p>Please wait a moment and try again.</p>
-            </div>
-          `;
-        }
-        
-        modal.style.display = 'flex';
-      }
-      
-      function closeWalletModal() {
-        document.getElementById('wallet-modal').style.display = 'none';
-      }
-      
-      async function connectToWallet(walletName) {
-        try {
-          const result = await window.connectWallet(walletName);
-          
-          if (result.success) {
-            closeWalletModal();
-            showNotification(`🎉 Successfully connected to ${walletName}!`, 'success');
-          } else {
-            showNotification(`❌ Failed to connect: ${result.error}`, 'error');
-          }
-        } catch (error) {
-          showNotification(`❌ Connection error: ${error.message}`, 'error');
-        }
-      }
-      
-      function showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.style.cssText = `
-          position: fixed;
-          top: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
-          color: white;
-          padding: 15px 25px;
-          border-radius: 8px;
-          z-index: 3000;
-          font-family: 'Sora', sans-serif;
-          font-weight: 500;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        `;
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-          notification.remove();
-        }, 5000);
-      }
-      
-      // Close modal when clicking outside
-      document.getElementById('wallet-modal').onclick = function(event) {
-        if (event.target === this) {
-          closeWalletModal();
-        }
-      };
-    </script>
-  
-
-</body></html>
+  </body>
+</html>
