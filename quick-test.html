@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DEGE Quick Image Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(45deg, #ff0000, #ffffff, #0000ff);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        img {
+            max-width: 300px;
+            height: auto;
+            border: 5px solid #007bff;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦅 DEGE Quick Image Test</h1>
+        
+        <div class="status info">
+            <strong>Testing image loading...</strong>
+        </div>
+        
+        <h2>Test 1: Downloaded Image</h2>
+        <img id="downloaded-img" src="downloaded-image.png" alt="Downloaded DEGE Image" 
+             onload="showResult('downloaded', true)" onerror="showResult('downloaded', false)">
+        <div id="result-downloaded" class="status" style="display: none;"></div>
+        
+        <h2>Test 2: Original Image</h2>
+        <img id="original-img" src="images/MainDege.png" alt="Original DEGE Image" 
+             onload="showResult('original', true)" onerror="showResult('original', false)">
+        <div id="result-original" class="status" style="display: none;"></div>
+        
+        <h2>Test 3: Force Reload</h2>
+        <img id="force-img" src="images/MainDege.png?nocache=123456" alt="Force Reload DEGE Image" 
+             onload="showResult('force', true)" onerror="showResult('force', false)">
+        <div id="result-force" class="status" style="display: none;"></div>
+        
+        <button class="btn" onclick="reloadAllImages()">🔄 Reload All Images</button>
+        
+        <div id="overall-result" class="status" style="display: none; margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        let results = {};
+        
+        function showResult(testName, success) {
+            const resultDiv = document.getElementById('result-' + testName);
+            resultDiv.style.display = 'block';
+            
+            if (success) {
+                resultDiv.className = 'status success';
+                resultDiv.textContent = '✅ Image loaded successfully!';
+                results[testName] = true;
+                console.log('✅ ' + testName + ' image loaded');
+            } else {
+                resultDiv.className = 'status error';
+                resultDiv.textContent = '❌ Image failed to load';
+                results[testName] = false;
+                console.error('❌ ' + testName + ' image failed');
+            }
+            
+            updateOverallResult();
+        }
+        
+        function updateOverallResult() {
+            const overallDiv = document.getElementById('overall-result');
+            const totalTests = Object.keys(results).length;
+            const successCount = Object.values(results).filter(Boolean).length;
+            
+            if (totalTests > 0) {
+                overallDiv.style.display = 'block';
+                
+                if (successCount === totalTests) {
+                    overallDiv.className = 'status success';
+                    overallDiv.textContent = `🎉 All ${totalTests} tests passed! Images are working!`;
+                } else {
+                    overallDiv.className = 'status error';
+                    overallDiv.textContent = `⚠️ ${successCount}/${totalTests} tests passed. Some images failed.`;
+                }
+            }
+        }
+        
+        function reloadAllImages() {
+            console.log('🔄 Reloading all images...');
+            const timestamp = new Date().getTime();
+            
+            // Reset results
+            results = {};
+            document.querySelectorAll('.status').forEach(div => div.style.display = 'none');
+            
+            // Reload images with new timestamp
+            document.getElementById('downloaded-img').src = 'downloaded-image.png?' + timestamp;
+            document.getElementById('original-img').src = 'images/MainDege.png?' + timestamp;
+            document.getElementById('force-img').src = 'images/MainDege.png?nocache=' + timestamp;
+        }
+        
+        // Log initial status
+        console.log('🎯 Starting DEGE quick image test...');
+        console.log('Server:', window.location.origin);
+        console.log('Expected tests: 3');
+        
+        // Test server response
+        fetch('/')
+            .then(response => {
+                console.log('✅ Server responding:', response.status);
+            })
+            .catch(error => {
+                console.error('❌ Server error:', error);
+            });
+    </script>
+</body>
+</html> 
