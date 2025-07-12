@@ -14,20 +14,12 @@ class DegeWallet {
 
     async init() {
         try {
-            // Check if API key is set
-            const apiKey = 'YOUR_BLOCKFROST_API_KEY';
-            if (apiKey === 'YOUR_BLOCKFROST_API_KEY') {
-                console.warn('⚠️ Please set your Blockfrost API key in wallet.js');
-                console.warn('Get your free API key at: https://blockfrost.io/');
-                // Initialize without Blockfrost for testing
-                this.lucid = await Lucid.new(undefined, 'Mainnet');
-            } else {
-                // Initialize Lucid with Blockfrost
-                this.lucid = await Lucid.new(
-                    new Blockfrost('https://cardano-mainnet.blockfrost.io/api/v0', apiKey),
-                    'Mainnet'
-                );
-            }
+            // Initialize Lucid with your Blockfrost API key
+            const apiKey = 'mainnetRphtobeMUfaH1ulbeDPsDntux1ESWh9r';
+            this.lucid = await Lucid.new(
+                new Blockfrost('https://cardano-mainnet.blockfrost.io/api/v0', apiKey),
+                'Mainnet'
+            );
             console.log('🚀 DEGE Wallet System Initialized');
         } catch (error) {
             console.error('Failed to initialize Lucid:', error);
