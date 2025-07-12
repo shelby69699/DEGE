@@ -41,6 +41,108 @@
       input[type="button"] {
         cursor: url("/Cursor.png") 12 12, pointer !important;
       }
+
+      /* SNEK.FUN STYLE BUTTON OVERRIDES */
+      
+      /* Hide the current button images */
+      button img[src*="CopyCA.png"],
+      button img[src*="BuyOnJupiter.png"], 
+      button img[src*="BuyOnRaydium.png"],
+      button img[src*="XButton.png"],
+      button img[src*="TGButton.png"],
+      button img[src*="DSButton.png"] {
+        display: none !important;
+      }
+
+      /* Style the button containers with snek.fun aesthetic */
+      button:has(img[src*="CopyCA.png"]),
+      button:has(img[src*="BuyOnJupiter.png"]),
+      button:has(img[src*="BuyOnRaydium.png"]),
+      button:has(img[src*="XButton.png"]),
+      button:has(img[src*="TGButton.png"]),
+      button:has(img[src*="DSButton.png"]) {
+        background: #1a1a1a !important;
+        border: 1px solid #333 !important;
+        border-radius: 8px !important;
+        color: #ffffff !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        padding: 12px 24px !important;
+        min-height: 48px !important;
+        transition: all 0.2s ease !important;
+        position: relative !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      button:has(img[src*="CopyCA.png"]):hover,
+      button:has(img[src*="BuyOnJupiter.png"]):hover,
+      button:has(img[src*="BuyOnRaydium.png"]):hover,
+      button:has(img[src*="XButton.png"]):hover,
+      button:has(img[src*="TGButton.png"]):hover,
+      button:has(img[src*="DSButton.png"]):hover {
+        background: #2a2a2a !important;
+        border-color: #555 !important;
+        transform: translateY(-1px) !important;
+      }
+
+      /* Add text content using CSS */
+      button:has(img[src*="CopyCA.png"]):after {
+        content: "📋 COPY CA" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        white-space: nowrap !important;
+      }
+
+      button:has(img[src*="BuyOnJupiter.png"]):after {
+        content: "🚀 BUY ON JUPITER" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        white-space: nowrap !important;
+      }
+
+      button:has(img[src*="BuyOnRaydium.png"]):after {
+        content: "⚡ BUY ON RAYDIUM" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        white-space: nowrap !important;
+      }
+
+      button:has(img[src*="XButton.png"]):after {
+        content: "🐦 FOLLOW ON X" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        white-space: nowrap !important;
+      }
+
+      button:has(img[src*="TGButton.png"]):after {
+        content: "📱 JOIN TELEGRAM" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        white-space: nowrap !important;
+      }
+
+      button:has(img[src*="DSButton.png"]):after {
+        content: "📊 DEXSCREENER" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        white-space: nowrap !important;
+      }
     </style>
     <script type="module" crossorigin="" src="./DEGE - America&#39;s Digital Mascot_files/index-Cg2tqmJC.js.αρχείο λήψης"></script>
     <link rel="stylesheet" crossorigin="" href="./DEGE - America&#39;s Digital Mascot_files/index-CVFuhTm_.css">
