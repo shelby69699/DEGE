@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DEGE Image Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+            border: 2px solid #ddd;
+            margin: 10px;
+            display: block;
+        }
+        .success { border-color: green; }
+        .error { border-color: red; }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.ok { background: #d4edda; color: #155724; }
+        .status.fail { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🦅 DEGE Image Loading Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Direct Image Loading</h2>
+        <div id="direct-test">
+            <h3>Main Logo</h3>
+            <img src="images/MainDege.png" alt="Main Logo" 
+                 onload="imageSuccess(this, 'MainDege.png')" 
+                 onerror="imageError(this, 'MainDege.png')">
+            <div id="status-main"></div>
+            
+            <h3>Banner</h3>
+            <img src="images/DegeBanner.png" alt="Banner" 
+                 onload="imageSuccess(this, 'DegeBanner.png')" 
+                 onerror="imageError(this, 'DegeBanner.png')">
+            <div id="status-banner"></div>
+            
+            <h3>Background</h3>
+            <img src="images/SkyBackground.png" alt="Background" 
+                 onload="imageSuccess(this, 'SkyBackground.png')" 
+                 onerror="imageError(this, 'SkyBackground.png')">
+            <div id="status-bg"></div>
+            
+            <h3>Cursor</h3>
+            <img src="images/Cursor.png" alt="Cursor" 
+                 onload="imageSuccess(this, 'Cursor.png')" 
+                 onerror="imageError(this, 'Cursor.png')">
+            <div id="status-cursor"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: URL Testing</h2>
+        <div id="url-test">
+            <button onclick="testImageURLs()">Test Image URLs</button>
+            <div id="url-results"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Server Info</h2>
+        <div id="server-info">
+            <p><strong>Current URL:</strong> <span id="current-url"></span></p>
+            <p><strong>Server Test:</strong> <span id="server-status"></span></p>
+            <button onclick="testServer()">Test Server Response</button>
+        </div>
+    </div>
+    
+    <script>
+        // Set current URL
+        document.getElementById('current-url').textContent = window.location.href;
+        
+        function imageSuccess(img, filename) {
+            console.log('✅ Image loaded successfully:', filename);
+            img.classList.add('success');
+            const statusId = 'status-' + filename.split('.')[0].toLowerCase().replace('dege', '');
+            const statusDiv = document.getElementById(statusId);
+            if (statusDiv) {
+                statusDiv.innerHTML = '<div class="status ok">✅ ' + filename + ' loaded successfully</div>';
+            }
+        }
+        
+        function imageError(img, filename) {
+            console.error('❌ Image failed to load:', filename);
+            img.classList.add('error');
+            const statusId = 'status-' + filename.split('.')[0].toLowerCase().replace('dege', '');
+            const statusDiv = document.getElementById(statusId);
+            if (statusDiv) {
+                statusDiv.innerHTML = '<div class="status fail">❌ ' + filename + ' failed to load</div>';
+            }
+        }
+        
+        function testImageURLs() {
+            const images = ['MainDege.png', 'DegeBanner.png', 'SkyBackground.png', 'Cursor.png'];
+            const results = document.getElementById('url-results');
+            results.innerHTML = '<h3>Testing URLs...</h3>';
+            
+            images.forEach(imageName => {
+                const url = 'images/' + imageName;
+                fetch(url)
+                    .then(response => {
+                        const status = response.ok ? 'ok' : 'fail';
+                        const message = response.ok ? 
+                            `✅ ${imageName}: ${response.status} ${response.statusText}` :
+                            `❌ ${imageName}: ${response.status} ${response.statusText}`;
+                        results.innerHTML += `<div class="status ${status}">${message}</div>`;
+                    })
+                    .catch(error => {
+                        results.innerHTML += `<div class="status fail">❌ ${imageName}: ${error.message}</div>`;
+                    });
+            });
+        }
+        
+        function testServer() {
+            const statusSpan = document.getElementById('server-status');
+            statusSpan.textContent = 'Testing...';
+            
+            fetch('/')
+                .then(response => {
+                    if (response.ok) {
+                        statusSpan.textContent = `✅ Server OK (${response.status})`;
+                        statusSpan.style.color = 'green';
+                    } else {
+                        statusSpan.textContent = `❌ Server Error (${response.status})`;
+                        statusSpan.style.color = 'red';
+                    }
+                })
+                .catch(error => {
+                    statusSpan.textContent = `❌ Server Error: ${error.message}`;
+                    statusSpan.style.color = 'red';
+                });
+        }
+        
+        // Auto-test on load
+        window.addEventListener('load', function() {
+            console.log('🎯 Starting image tests...');
+            setTimeout(testServer, 500);
+            setTimeout(testImageURLs, 1000);
+        });
+    </script>
+</body>
+</html> 
